@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- 支持基于注解的配置方式，为@Autowired、@Resource、@PostConstruct、@PreDestroy注解提供支持 -->
+	<context:component-scan base-package="Controller"></context:component-scan>
+
+	<!--注解驱动 3.1版本后可以代替注解映射器，注解适配器 -->
+	<mvc:annotation-driven  />
+
+	<!-- 访问静态资源 -->
+	<mvc:resources location="/" mapping="/**" />
+
+	<!-- 定义全局异常 -->
+	<bean class="exception.CustomExceptionResolver"></bean>
+
+	<!-- 配置MultipartResolver，用于上传文件，使用spring的CommonsMultipartResolver-->  
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+   		 <property name="defaultEncoding" value="UTF-8"/>
+    </bean>	
+
+	<!-- 配置试图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 拦截器 -->
+	<mvc:interceptors>	
+		<mvc:interceptor>
+			<mvc:mapping path="/UpLoad" />
+			<bean class="Interceptor.MyFileInterceptor"></bean>	
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</beans>    	   
+     	   
+     	   
+     	   
